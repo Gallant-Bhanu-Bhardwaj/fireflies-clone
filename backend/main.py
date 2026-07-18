@@ -12,10 +12,19 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Fireflies Clone API")
 
 # The Next.js dev server runs on :3000 and calls this API from the browser,
-# so it needs an explicit CORS allow-list.
+# so it needs an explicit CORS allow-list. The deployed frontend adds two more
+# origins: the production Vercel domain, plus a regex for that project's
+# preview-deployment URLs (Vercel gives every branch/PR its own subdomain, so
+# an exact-match list can't cover them — the regex is scoped to this project's
+# name prefix rather than "*.vercel.app" so it doesn't allow arbitrary
+# other Vercel-hosted sites).
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://fireflies-clone-sepia.vercel.app",
+    ],
+    allow_origin_regex=r"^https://fireflies-clone-.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
