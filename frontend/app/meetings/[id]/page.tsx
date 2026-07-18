@@ -53,7 +53,9 @@ export default function MeetingDetailPage() {
         setMeeting(data);
         setActionItems(data.action_items);
       })
-      .catch(() => setError("Couldn't load this meeting. Is the backend running on :8000?"))
+      .catch(() =>
+        setError(`Couldn't load this meeting. Is the backend running at ${API_BASE_URL}?`)
+      )
       .finally(() => setIsLoading(false));
   }, [meetingId]);
 

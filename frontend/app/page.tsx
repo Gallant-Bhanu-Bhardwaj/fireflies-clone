@@ -31,7 +31,7 @@ export default function Home() {
       setMeetings(await res.json());
       setError(null);
     } catch {
-      setError("Couldn't load meetings. Is the backend running on :8000?");
+      setError(`Couldn't load meetings. Is the backend running at ${API_BASE_URL}?`);
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +48,7 @@ export default function Home() {
         setMeetings(await res.json());
         setError(null);
       } catch {
-        setError("Couldn't load meetings. Is the backend running on :8000?");
+        setError(`Couldn't load meetings. Is the backend running at ${API_BASE_URL}?`);
       } finally {
         setIsLoading(false);
       }

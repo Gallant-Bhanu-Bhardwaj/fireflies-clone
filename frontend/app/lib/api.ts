@@ -1,6 +1,14 @@
 import type { SearchResult } from "../types";
 
-export const API_BASE_URL = "http://localhost:8000";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+if (!apiUrl) {
+  throw new Error(
+    "NEXT_PUBLIC_API_URL is not set. Copy frontend/.env.local.example to " +
+      "frontend/.env.local and set it to your backend's URL."
+  );
+}
+
+export const API_BASE_URL = apiUrl;
 
 /** Global search across meeting titles and transcript text. */
 export async function searchMeetings(query: string): Promise<SearchResult[]> {
